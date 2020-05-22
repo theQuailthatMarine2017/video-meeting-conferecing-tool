@@ -61,6 +61,8 @@
           </q-item>
         </router-link>
 
+
+        <router-link to="/meetings" style="text-decoration:none;color:black;">
           <q-item v-ripple clickable>
             <q-item-section avatar>
               <q-icon color="grey" name="fas fa-video" />
@@ -69,8 +71,11 @@
               <q-item-label>Enter Meeting</q-item-label>
             </q-item-section>
           </q-item>
+        </router-link>
 
-          <q-item v-ripple clickable>
+
+        
+          <q-item @click="signout" v-ripple clickable>
             <q-item-section avatar>
               <q-icon color="grey" name="fas fa-sign-out-alt" />
             </q-item-section>
@@ -78,7 +83,6 @@
               <q-item-label>Sign Out</q-item-label>
             </q-item-section>
           </q-item>
-
          
 
           <q-separator class="q-mt-md q-mb-lg" />
@@ -170,6 +174,10 @@ export default {
   },
   methods:{
 
+    signout(){
+
+      this.$router.push('/')
+    }
   }
 }
 </script>

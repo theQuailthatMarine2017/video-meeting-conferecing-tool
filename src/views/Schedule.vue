@@ -11,14 +11,15 @@
               <q-input v-model="title" label="Enter Title For Meeting" />
               <p>Click Below To Select Date and Time for Meeting:</p>
               <datetime format="DD/MM/YYYY H:i" width="300px" v-model="val" label="kskssk"></datetime>
+              <q-input v-model="passcode" type="password" label="Enter Secret PassCode For Attendees." />
               <q-select v-model="duration" :options="options" label="Select Duration For Meeting" />
 
               <q-input v-model="attendee" label="Enter Email For All Attendees (Ksh150 per Attendee)." />
 
-              <q-btn @click="addAttendee" color="primary" label="Add Attendee" />
+              <q-btn @click="addAttendee" color="green" label="Add Attendee" />
 
       </q-form>
-<q-btn color="primary" label="Reset" style="margin-top:10px;" />
+<q-btn color="red" @click="reset_meeting" label="Reset" style="margin-top:10px;" />
         </div>
 <div class="col-md-6 col-sm-12">
             <q-list dense  padding class="rounded-borders">
@@ -29,17 +30,12 @@
 
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Host: Rony Marine Quail
-                </q-item-section>
-              </q-item>
-              <q-item clickable v-ripple>
-                <q-item-section>
                   Title: {{ title }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  DateTime: {{ val }}
+                  DateTime: {{ moment(val).format("dddd, MMMM Do YYYY, h:mm a") }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
@@ -65,18 +61,48 @@
                 </q-item-section>
               </q-item>
               
-             <q-btn  color="primary" label="Pay & Confirm Meeting" style="margin-left:15px;"/>
+             <q-btn @click="session = true" color="green" label="Pay & Confirm Meeting" style="margin-left:15px;"/>
 
             </q-list>
           </div>
 
     </div>
+
+
+    <!--Modal Create Session-->
+  <q-dialog v-model="session">
+      <q-card>
+        <q-toolbar>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+          </q-avatar>
+
+          <q-toolbar-title>Payment Confirmation</q-toolbar-title>
+
+          <q-btn flat round icon="fas fa-times" v-close-popup />
+        </q-toolbar>
+
+
+        <q-card-section>
+<p>Please Pay {{ meeting_cost}} To Paybill Number 5678765 Account Name MEETING and Enter the Payment Confirmation Code Below For Payment Validation.</p>
+          
+      <q-input v-model="code" placeholder="Enter Confirmation Code" filled  />
+
+      <div style="padding-top:10px;">
+        <q-btn label="Verfiy" @click="signin" color="primary"/>
+      </div>
+   
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+
+
 </div>
 </template>
 
 <script>
 import datetime from 'vuejs-datetimepicker';
-
 
 export default{
 	components: { datetime },
@@ -88,7 +114,9 @@ export default{
       duration:'',
       title:'',
       val:'',
+      code:'',
       attendees:[],
+      session:false,
       attendee:'',
 		}
 	},
@@ -107,6 +135,14 @@ export default{
 				this.$toast.open({message:'Attendee Added!',type:'success',position:'bottom'});
 				this.attendee = ''
 			}
+		},
+		reset_meeting(){
+
+
+			this.title = ''
+			this.duration = '',
+			this.val = null,
+			this.attendees = []
 		}
 	},
 	computed:{

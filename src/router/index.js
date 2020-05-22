@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import SignIn from '../views/SignIn.vue'
 import Home from '../views/Main.vue'
 import Schedule from '../views/Schedule.vue'
+import Meetings from '../views/Meetings.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ Vue.use(VueRouter)
     path:'/schedule',
     name: 'Schedule',
     component: Schedule
+  },
+  {
+    path:'/meetings',
+    name: 'Meetings',
+    component: Meetings
   }
 
 ]

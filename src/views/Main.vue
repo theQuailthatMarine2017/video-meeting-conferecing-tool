@@ -11,33 +11,37 @@
                 Upcoming Meetings
               </q-item-label>
 
-              <q-item clickable v-ripple>
+              <q-item>
                 <q-item-section>
                    <q-card class="my-card" flat bordered>
 
                         <q-card-actions>
-                          <q-btn flat round icon="fas fa-calendar-alt" />
-                          <q-btn flat>
-                            2:30PM Thursday 24th May 2020
-                          </q-btn>
+                          <q-btn color="orange" flat round icon="fas fa-calendar-alt" />
+                          <q-item-label header style="color:black;">
+                            Marketing Brief Coke<br>
+                            Tuesday, May 5th 2020, 1:24 pm<br>
+                          </q-item-label>
+                          
                         </q-card-actions>
                       </q-card>
                           </q-item-section>
                         </q-item>
 
-                        <q-item clickable v-ripple>
+                <q-item>
+
                 <q-item-section>
                    <q-card class="my-card" flat bordered>
 
                         <q-card-actions>
-                          <q-btn flat round icon="fas fa-calendar-alt" />
-                          <q-btn flat>
-                            11:30AM Friday 25th May 2020
-                          </q-btn>
+                          <q-btn flat color="orange" round icon="fas fa-calendar-alt" />
+                          <q-item-label header style="color:black;">
+                            Weekly Objectives Meeting Sales Team<br>
+                            Tuesday, May 5th 2020, 1:24 pm<br>
+                          </q-item-label>
                         </q-card-actions>
                       </q-card>
                           </q-item-section>
-                        </q-item>
+                </q-item>
 
 
             </q-list>

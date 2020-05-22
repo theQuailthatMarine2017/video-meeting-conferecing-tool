@@ -6,8 +6,10 @@ import './quasar'
 import VueToast from 'vue-toast-notification';
 // Import one of available themes
 import 'vue-toast-notification/dist/theme-default.css';
+import moment from 'moment';
 
 Vue.config.productionTip = false
+Vue.prototype.moment = moment
 
 Vue.use(VueToast);
 
