@@ -5,7 +5,7 @@
 
 
         <div class="col-md-6 col-sm-12">
-            <q-list dense  class="rounded-borders">
+            <q-list v-if="all_meeting > 0" dense  class="rounded-borders">
 
               <q-item-label header class="text-weight-bold text-uppercase" style="color:black;font-size:30px;">
                 Upcoming Meetings
@@ -45,6 +45,11 @@
 
 
             </q-list>
+            <div>
+            <h5>
+              {{ meets }}
+            </h5>
+          </div>
           </div>
 
         <div class="col-md-6 col-sm-12">
@@ -56,22 +61,22 @@
 
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Fullnames: Rony Marine Quail
+                  Fullnames: {{ useraccount.fullnames }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Email Address: rony@admin.com
+                  Email Address: {{ useraccount.email }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Mobile Contact: +25470666354
+                  Mobile Contact: +{{ useraccount.mobile }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Company / School: Kenya Methodist Univeristy
+                  Company / School: {{ useraccount.occupation }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
@@ -81,7 +86,7 @@
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Meetings Attended: 4
+                  Meetings Attended: {{ useraccount.attendedMeetings }}
                 </q-item-section>
               </q-item>
             </q-list>
@@ -94,16 +99,70 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 
 export default {
+  mounted () {
 
+    this.user_acc = this.user
+    console.log(this.meetings.length)
+    console.log(this.newuser)
+
+    if(this.newuser === true){
+
+      this.$q.notify({
+
+        type:'positive',
+        color:'green',
+        position:'top-right',
+        textColor:'white',
+        caption:'Welcome New User!',
+        message:'You Can Now Schedule and Pay for Secure Meetings!',
+        timeout:6000
+      })
+    }
+    this.all_meeting = this.meetings.length
+    
+  },
   data () {
     return {
 
-          }
+      user_acc:null,
+      all_meeting:null,
+      welcome:null
+    }
   },
-  created () {
-    
+  methods:{
+    getnewuser(){
+
+      if(this.newuser === true){
+
+        this.welcome = "Welcome New User! You can now schedule secure meetings!"
+        
+      }else{
+
+        this.welcome = null
+
+      }
+    }
+  },
+  computed:{
+    ...mapGetters(["meetings","user","newuser"]),
+    useraccount(){
+
+      return this.user
+    },
+    meets(){
+
+      if (this.all_meeting === 0){
+
+        return "You Have No Scheduled Meetings."
+      } else {
+
+        return this.meetings
+
+      }
+    }
   }
 }
 </script>

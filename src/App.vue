@@ -123,11 +123,14 @@
 
 <script>
 import { fabYoutube } from '@quasar/extras/fontawesome-v5'
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: 'MyLayout',
   data () {
     return {
       leftDrawerOpen: false,
+      loader:null,
       search: '',
       links1: [
         { icon: 'home', text: 'Home' },
@@ -169,14 +172,38 @@ export default {
       ]
     }
   },
-  created () {
+  created(){
+
     this.fabYoutube = fabYoutube
+
+
+  },
+  mounted(){
+    
   },
   methods:{
+    ...mapActions(["signOut"]),
 
     signout(){
 
-      this.$router.push('/')
+      this.signOut()
+    }
+  },
+  computed:{
+    ...mapGetters(["token"])
+  },
+  watch:{
+
+    token(val){
+
+      if(val === null){
+        setTimeout(() => {
+
+            this.$router.push('/')
+
+          },1000)
+
+      }
     }
   }
 }
