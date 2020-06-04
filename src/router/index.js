@@ -4,6 +4,7 @@ import SignIn from '../views/SignIn.vue'
 import Home from '../views/Main.vue'
 import Schedule from '../views/Schedule.vue'
 import Meetings from '../views/Meetings.vue'
+import authenticate from "../auth/authenticate";
 
 Vue.use(VueRouter)
 
@@ -14,7 +15,13 @@ Vue.use(VueRouter)
     component: SignIn
   },
   {
+    path:'/validate',
+    name:'Validate Account',
+    component: Validate
+  }
+  {
     path:'/home',
+    beforeEnter: authenticate,
     name: 'Home',
     component: Home
   },

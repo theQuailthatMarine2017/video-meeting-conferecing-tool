@@ -3,11 +3,13 @@ import { Notify } from 'quasar'
 
 export default {
   state: {
-    meetings:null
+    meetings:null,
+    schedule_meeting:null,
     refund_meeting:null
   },
   getters: {
     meeting: state => state.meeting,
+    schedule_meeting: state => state.schedule_meeting,
     refund: state => state.refund_meeting
   },
   mutations: {
@@ -17,7 +19,7 @@ export default {
     },
     AddMeetings(state,data){
 
-        state.active_meetings = data;
+        state.meetings = data;
     }
   },
   actions: {
