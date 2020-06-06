@@ -1,14 +1,23 @@
-import {store} from '../store/index'
-import { Loading, QSpinnerGears } from 'quasar'
+import store from '../store/index'
 
 export default (to, from, next) => {
 
-  if (localStorage.getItem("token") != null && localStorage.getItem("user").length > 0) {
+  if (localStorage != null) {
 
   	//User Has Token and User Info Stored Local So Auto Sign Triggered
-    
-    store.getters.user = localStorage.getItem("user").user_account
-    store.getters.token = localStorage.getItem("token").token
+
+  	var token = localStorage.getItem("token")
+    var user_account = {
+      fullnames:localStorage.getItem("user_fullnames"),
+      email:localStorage.getItem("user_email"),
+      mobile:localStorage.getItem("user_mobile"),
+      occupation:localStorage.getItem("user_occupation")
+    }
+
+    console.log(token)
+
+    store.commit('AddUser', user_account);
+    store.commit('AddToken', token);
 
     next();
 

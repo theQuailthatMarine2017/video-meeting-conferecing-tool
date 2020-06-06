@@ -8,7 +8,7 @@ export default {
     refund_meeting:null
   },
   getters: {
-    meeting: state => state.meeting,
+    meeting: state => state.meetings,
     schedule_meeting: state => state.schedule_meeting,
     refund: state => state.refund_meeting
   },
@@ -25,27 +25,33 @@ export default {
   actions: {
     getmeetings({commit}, data) {
 
+        console.log(data)
 
-          axios.post('http://localhost:7200/api/shirikia/get-meeting/'+ data).then( response => {
+          axios.get('http://localhost:7200/api/shirikia/get-meetings/',{
+                              params: {
+                                email: data
+                              }
+                            }).then( response => {
 
-            console.log(response.data);
+                                        console.log(response.data.meetings);
+                                        commit("AddMeetings", response.data.meetings);
 
-            commit("AddMeetings", response.data.meeting);
 
+                                      }).catch( err => {
 
-          }).catch( err => {
+                                        console.log(err)
 
-              Notify.create({
-                  type:'negative',
-                  color:'red',
-                  position:'top-right',
-                  textColor:'white',
-                  caption:'Error Occured!',
-                  message:err,
-                  timeout:8000
-                })
+                                          Notify.create({
+                                              type:'negative',
+                                              color:'red',
+                                              position:'top-right',
+                                              textColor:'white',
+                                              caption:'Error Occured!',
+                                              message:err,
+                                              timeout:8000
+                                            })
 
-          })
+                                      })
 
     },
     scheduleMeeting({commit}, data) {

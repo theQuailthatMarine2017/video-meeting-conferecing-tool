@@ -52,6 +52,7 @@ export default {
             console.log(response.data);
 
             Notify.create({
+
                   type:'positive',
                   color:'green',
                   position:'top-right',
@@ -59,10 +60,14 @@ export default {
                   caption:'Login Succesful',
                   message:'Welcome Back!',
                   timeout:6000
+                  
                 })
             
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("user", response.data.user_account);
+            localStorage.setItem("user_email", response.data.user_account.email);
+            localStorage.setItem("user_mobile", response.data.user_account.mobile);
+            localStorage.setItem("user_fullnames", response.data.user_account.fullnames);
+            localStorage.setItem("user_occupation", response.data.user_account.occupation);
 
             commit("AddUser", response.data.user_account);
             commit("AddToken",response.data.token);
@@ -112,10 +117,6 @@ export default {
 
         commit('LoggOff')
       
-    },
-    usersignedein({commit},data){
-
-      console.log(data)
     }
   }
 };

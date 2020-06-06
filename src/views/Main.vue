@@ -5,7 +5,7 @@
 
 
         <div class="col-md-6 col-sm-12">
-            <q-list v-if="all_meeting > 0" dense  class="rounded-borders">
+            <q-list v-if="user_meetings != null" dense  class="rounded-borders">
 
               <q-item-label header class="text-weight-bold text-uppercase" style="color:black;font-size:30px;">
                 Upcoming Meetings
@@ -46,8 +46,8 @@
 
             </q-list>
             <div>
-            <h5>
-              {{ meets }}
+            <h5 v-if="no_meetings_message != null">
+              {{ no_meetings_message }}
             </h5>
           </div>
           </div>
@@ -86,7 +86,7 @@
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Meetings Attended: {{ useraccount.attendedMeetings }}
+                  Meetings Attended: 3
                 </q-item-section>
               </q-item>
             </q-list>
@@ -99,13 +99,27 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import { QSpinnerGears } from 'quasar';
 
 export default {
+  created(){
+    // fetch meetings from database using meetings vuex store get meetings function passing the users
+    // current email as parameter
+    this.$q.loading.show({
+        message: '<span style="font-size:25px;font-weight:bold;">Fetching Meetings From Server.</span><br/>Please Wait....',
+        spinner:QSpinnerGears,
+        spinnerColor: 'orange',
+        spinnerSize: 200,
+        backgroundColor: 'black'
+      })
+
+    this.getmeetings(this.user.email)
+
+
+  },
   mounted () {
 
-    this.user_acc = this.user
-    console.log(this.meetings.length)
     console.log(this.newuser)
 
     if(this.newuser === true){
@@ -121,49 +135,55 @@ export default {
         timeout:6000
       })
     }
-    this.all_meeting = this.meetings.length
     
   },
   data () {
     return {
 
-      user_acc:null,
-      all_meeting:null,
-      welcome:null
+      user_meetings:null,
+      no_meetings_message:null
     }
   },
   methods:{
-    getnewuser(){
-
-      if(this.newuser === true){
-
-        this.welcome = "Welcome New User! You can now schedule secure meetings!"
-        
-      }else{
-
-        this.welcome = null
-
-      }
-    }
+    ...mapActions(["getmeetings"])
   },
   computed:{
-    ...mapGetters(["meetings","user","newuser"]),
+    ...mapGetters(["meeting","user","newuser"]),
     useraccount(){
 
       return this.user
-    },
-    meets(){
+    }
+  },
+  watch:{
+    meeting(val){
 
-      if (this.all_meeting === 0){
+      console.log(val.length)
+      console.log('shshshshssh')
 
-        return "You Have No Scheduled Meetings."
+      if (val.length > 0){
+
+        setTimeout(() => {
+
+            this.$q.loading.hide()
+
+          },1000)
+
+        this.user_meetings = val
+
       } else {
 
-        return this.meetings
+         setTimeout(() => {
+
+            this.$q.loading.hide()
+
+          },1000)
+
+        this.no_meetings_message = 'You Have No Meetings Scheduled.'
 
       }
     }
   }
+
 }
 </script>
 

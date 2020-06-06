@@ -284,6 +284,7 @@ export default{
 
       }
     }
+    // Watch for validation part of user profile. Default should be false on registered and changed to true once registered.
   }
 
 }
