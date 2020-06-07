@@ -6,10 +6,12 @@ export default {
     err:null,
     token:null,
     user:null,
-    newuser:false
+    newuser:false,
+    verify:false,
   },
   getters: {
     err: state => state.err,
+    verify: state => state.verify,
     user: state => state.user,
     token: state => state.token,
     newuser: state => state.newuser
@@ -22,6 +24,10 @@ export default {
     AddUser(state,data){
 
         state.user = data;
+    },
+    VerifyUser(state,data){
+
+      state.verify = data
     },
     AddError(state,data){
 
@@ -88,27 +94,27 @@ export default {
 
             console.log(response.data)
 
-            Notify.create({
-                  type:'positive',
-                  color:'green',
-                  position:'top-right',
-                  textColor:'white',
-                  caption:'Registration Succesful!',
-                  message:'You Account Has Been Created Succesfully!',
-                  timeout:8000
-                })
+            // Notify.create({
+            //       type:'positive',
+            //       color:'green',
+            //       position:'top-right',
+            //       textColor:'white',
+            //       caption:'Registration Succesful!',
+            //       message:'You Account Has Been Created Succesfully!',
+            //       timeout:8000
+            //     })
             
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("user", response.data.user_account);
+            localStorage.setItem("user_fullnames", response.data.account_create.fullnames);
+            localStorage.setItem("user_email", response.data.account_create.email);
+            localStorage.setItem("user_mobile", response.data.account_create.mobile);
+            localStorage.setItem("user_password", response.data.account_create.password);
 
-            commit("NewUser", true)
-            commit("AddUser", response.data.user_account)
-            commit("AddToken",response.data.token)
+            commit("VerifyUser", response.data.account_create.verified)
 
       }).catch( err => {
 
             console.log("Request Error App: " + err.title);
-            commit("AddError", err)
+            commit("AddError", err.title)
           
 
       })

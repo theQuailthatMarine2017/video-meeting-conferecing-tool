@@ -61,22 +61,22 @@
 
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Fullnames: {{ useraccount.fullnames }}
+                  Fullnames: {{ user.fullnames }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Email Address: {{ useraccount.email }}
+                  Email Address: {{ user.email }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Mobile Contact: +{{ useraccount.mobile }}
+                  Mobile Contact: +{{ user.mobile }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Company / School: {{ useraccount.occupation }}
+                  Company / School: {{ user.occupation }}
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple>
@@ -106,6 +106,8 @@ export default {
   created(){
     // fetch meetings from database using meetings vuex store get meetings function passing the users
     // current email as parameter
+
+    console.log(this.user)
     this.$q.loading.show({
         message: '<span style="font-size:25px;font-weight:bold;">Fetching Meetings From Server.</span><br/>Please Wait....',
         spinner:QSpinnerGears,
@@ -121,7 +123,6 @@ export default {
   mounted () {
 
     console.log(this.newuser)
-
     if(this.newuser === true){
 
       this.$q.notify({

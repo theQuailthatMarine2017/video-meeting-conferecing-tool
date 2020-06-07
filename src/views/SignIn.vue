@@ -57,8 +57,8 @@
                     <q-banner v-if="errors[0] != null" inline-actions class="text-white bg-red">
                   {{ errors[0] }}
                 </q-banner>
-                <q-banner inline-actions class="text-white bg-red" v-if="problem != null">
-              {{ problem }}
+                <q-banner inline-actions class="text-white bg-red" v-if="err != null">
+              {{ err }}
             </q-banner>
                 </validation-provider>
 
