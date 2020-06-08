@@ -254,10 +254,9 @@ export default{
     }
   },
   computed: {
-    ...mapGetters(["meetings","err","token"])
+    ...mapGetters(["meetings","err","token","verify"])
   },
   watch: {
-
     //Watches for errors raised from calling vuex store actions mapped into this component.
     err(val) {
       if (val != null) {
@@ -283,8 +282,16 @@ export default{
           },1000)
 
       }
-    }
+    },
     // Watch for validation part of user profile. Default should be false on registered and changed to true once registered.
+    verify(val){
+
+      if(val === false){
+        // Go To Verify Route
+        this.$router.push('/validate')
+      }
+    }
+    
   }
 
 }

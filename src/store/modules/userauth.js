@@ -7,7 +7,7 @@ export default {
     token:null,
     user:null,
     newuser:false,
-    verify:false,
+    verify:null,
   },
   getters: {
     err: state => state.err,
