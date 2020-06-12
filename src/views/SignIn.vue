@@ -346,9 +346,7 @@ export default{
 
 
 
-#nav {
-  
-}
+
 
 #nav a {
   font-weight: bold;

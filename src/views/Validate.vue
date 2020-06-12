@@ -64,15 +64,15 @@ export default {
             var passcode = parseInt(code,10)
             console.log(passcode)
 
-            // var user_verify = {
+            var user_verify = {
 
-            //     fullnames:localStorage.setItem("user_fullnames"),
-            //     email:localStorage.setItem("user_fullnames"),
-            //     mobile:localStorage.setItem("user_fullnames"),
-            //     occupationn:localStorage.setItem("user_fullnames"),
-            //     password:localStorage.setItem("user_fullnames"),
-            //     passcode:localStorage.setItem("user_fullnames"),
-            // }
+                fullnames:localStorage.setItem("user_fullnames"),
+                email:localStorage.setItem("user_fullnames"),
+                mobile:localStorage.setItem("user_fullnames"),
+                occupationn:localStorage.setItem("user_fullnames"),
+                password:localStorage.setItem("user_fullnames"),
+                passcode:localStorage.setItem("user_fullnames"),
+            }
 
             axios.post('http://localhost:7200/api/shirikia/verify-account/',user_verify).then( response => {
 
