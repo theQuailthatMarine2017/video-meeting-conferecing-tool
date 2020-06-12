@@ -1,7 +1,7 @@
 
 <template>
   <q-layout view="hHh lpR fFf" class="bg-grey-1" >
-    <q-header  v-if="$route.name != 'Sign In'" elevated class="bg-white text-grey-8 q-py-xs" height-hint="58">
+    <q-header  v-if="$route.name != 'Sign In' && $route.name != 'Validate Account'" elevated class="bg-white text-grey-8 q-py-xs" height-hint="58">
       <q-toolbar >
         <q-btn
           flat
@@ -25,7 +25,7 @@
     </q-header>
 
     <q-drawer
-    v-if="$route.name != 'Sign In'"
+    v-if="$route.name != 'Sign In' && $route.name != 'Validate Account'"
       v-model="leftDrawerOpen"
       show-if-above
       bordered
