@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     data() {
@@ -58,31 +58,78 @@ export default {
         }
     },
     methods: {
+        ...mapActions(["verifyuser","requestcode"]),
+
         verify_account(){
 
             var code = this.code_1 + this.code_2 + this.code_3 + this.code_4 + this.code_5
             var passcode = parseInt(code,10)
             console.log(passcode)
 
-            var user_verify = {
+            this.loader = this.$loading.show({
+                    // Optional parameters
+                    color: '#ff0000',
+                    width: 75,
+                    height: 75,
+                    opacity: 0.7,
+                    
+                  });
 
-                fullnames:localStorage.setItem("user_fullnames"),
-                email:localStorage.setItem("user_fullnames"),
-                mobile:localStorage.setItem("user_fullnames"),
-                occupationn:localStorage.setItem("user_fullnames"),
-                password:localStorage.setItem("user_fullnames"),
-                passcode:localStorage.setItem("user_fullnames"),
-            }
+            this.verifyuser({email:localStorage.getItem("user_email"),mobile:localStorage.getItem("user_mobile"),occupation:localStorage.getItem("user_occupation"),fullnames:localStorage.getItem("user_fullnames"),password:localStorage.getItem("user_password"),verifycode:passcode})
 
-            axios.post('http://localhost:7200/api/shirikia/verify-account/',user_verify).then( response => {
-
-                console.log(response)
-            })
         },
         request_new_code(){
 
+            // var mobile = localStorage.getItem("user_mobile");
+
+
+
         }
     },
+    computed:{
+        ...mapGetters(["err","token"])
+    },
+    watch:{
+
+        //If Succesful Token Will Be Assigned
+        token(val){
+          if(val != null){
+
+            setTimeout(() => {
+
+                //Accounted Created and Verified, User navigated to main page
+                this.$q.notify({
+                  type:'positive',
+                  color:'green',
+                  position:'top-right',
+                  textColor:'white',
+                  caption:'Registration and Verification Succesful!',
+                  message:'Your Account Has Been Created and Verified Succesfully!',
+                  timeout:8000
+                })
+
+                this.loader.hide()
+                this.$router.push('/home')
+
+              },1000)
+
+          }
+        },
+
+        //Watches for errors raised from calling vuex store actions mapped into this component.
+        err(val) {
+          if (val != null) {
+
+              setTimeout(() => {
+
+                this.loader.hide()
+                this.er = val
+
+              },1000)
+
+          }
+        },
+    }
 }
 </script>
 

@@ -93,23 +93,72 @@ export default {
       axios.post('http://localhost:7200/api/shirikia/create-account', data).then( response => {
 
             console.log(response.data)
-
-            // Notify.create({
-            //       type:'positive',
-            //       color:'green',
-            //       position:'top-right',
-            //       textColor:'white',
-            //       caption:'Registration Succesful!',
-            //       message:'You Account Has Been Created Succesfully!',
-            //       timeout:8000
-            //     })
             
             localStorage.setItem("user_fullnames", response.data.account_create.fullnames);
             localStorage.setItem("user_email", response.data.account_create.email);
+            localStorage.setItem("user_occupation", response.data.account_create.occupation);
             localStorage.setItem("user_mobile", response.data.account_create.mobile);
             localStorage.setItem("user_password", response.data.account_create.password);
 
-            commit("VerifyUser", response.data.account_create.verified)
+            commit("VerifyUser", response.data.verified)
+
+      }).catch( err => {
+
+            console.log("Request Error App: " + err);
+            commit("AddError", err.title)
+          
+
+      })
+    },
+    verifyuser({commit}, data) {
+
+      axios.post('http://localhost:7200/api/shirikia/verify-account',data).then( response => {
+
+            console.log(response)
+
+            localStorage.setItem("user_fullnames", response.data.user.fullnames);
+            localStorage.setItem("user_email", response.data.user.email);
+            localStorage.setItem("user_occupation", response.data.user.occupation);
+            localStorage.setItem("user_mobile", response.data.user.mobile);
+            localStorage.setItem("user_password", response.data.user.password);
+
+            commit("NewUser", true)
+            commit("VerifyUser", response.data.user.verified)
+
+            commit("AddUser", response.data.user);
+            commit("AddToken",response.data.token);
+
+
+      }).catch( err => {
+
+            console.log("Request Error App: " + err.title);
+            commit("AddError", err.title)
+          
+
+      })
+
+    },
+    requestcode({commit}, data){
+
+      axios.post('http://localhost:7200/api/shirikia/request-code',data).then( response => {
+
+        //if successful user notified new code has been issued
+        if(response.data.code_request === true){
+
+          Notify.create({
+
+                  type:'positive',
+                  color:'green',
+                  position:'top-right',
+                  textColor:'white',
+                  caption:'Login Succesful',
+                  message:'Welcome Back!',
+                  timeout:6000
+                  
+                })
+
+
+        }
 
       }).catch( err => {
 
