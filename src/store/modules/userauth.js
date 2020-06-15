@@ -90,7 +90,7 @@ export default {
     createuser({commit}, data) {
 
 
-      axios.post('http://localhost:7200/api/shirikia/create-account', data).then( response => {
+      axios.post('https://localhost:7200/api/shirikia/create-account', data).then( response => {
 
             console.log(response.data)
             
@@ -112,7 +112,7 @@ export default {
     },
     verifyuser({commit}, data) {
 
-      axios.post('http://localhost:7200/api/shirikia/verify-account',data).then( response => {
+      axios.post('https://localhost:7200/api/shirikia/verify-account',data).then( response => {
 
             console.log(response)
 
@@ -140,7 +140,7 @@ export default {
     },
     requestcode({commit}, data){
 
-      axios.post('http://localhost:7200/api/shirikia/request-code',data).then( response => {
+      axios.post('https://localhost:7200/api/shirikia/request-code',data).then( response => {
 
         //if successful user notified new code has been issued
         if(response.data.code_request === true){

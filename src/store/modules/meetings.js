@@ -27,7 +27,7 @@ export default {
 
         console.log(data)
 
-          axios.get('http://localhost:7200/api/shirikia/get-meetings/',{
+          axios.get('https://localhost:7200/api/shirikia/get-meetings/',{
                               params: {
                                 email: data
                               }
@@ -57,7 +57,7 @@ export default {
     scheduleMeeting({commit}, data) {
 
 
-      axios.post('http://localhost:7200/api/shirikia/schedule-meeting', data).then( response => {
+      axios.post('https://localhost:7200/api/shirikia/schedule-meeting', data).then( response => {
 
             console.log(response.data)
 
