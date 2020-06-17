@@ -5,7 +5,7 @@
 <h2>Shirikiana<br><h4 style="font-weight: bold;color:white">Account Authetication<br></h4></h2>
             <div class="row" style="margin-top:20px;">
                 <div class="col">
-                    <h4 class="mob">Please Enter 5 Digit Code Sent To Your Mobile Number</h4>
+                    <h4 class="mob">Please Enter 5 Digit Code Sent To Your Email Address</h4>
                     <div class="row  justify-center">
                 <div class="col" style=" margin-top:20px;margin-left:15px;margin-right:15px;max-width:55px;">
                     <q-input color="lime-11" bg-color="white" filled square outlined v-model="code_1">
