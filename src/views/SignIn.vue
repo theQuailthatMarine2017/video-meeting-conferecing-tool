@@ -112,13 +112,6 @@
                 </q-banner>
             </validation-provider>
 
-            <validation-provider name="Occupation" rules="required" v-slot="{ errors }">
-          <q-input v-model="occupation" placeholder="Student / Manager" filled  hint="What Do You Do?" />
-          <q-banner v-if="errors[0] != null" inline-actions class="text-white bg-red">
-                  {{ errors[0] }}
-                </q-banner>
-            </validation-provider>
-
             <validation-provider rules="required" v-slot="{ errors }">
           <q-input v-model="password" placeholder="Min Length 8 Characters" filled :type="isPwd ? 'password' : 'text'" hint="Choose Password">
             <template v-slot:append>
@@ -193,7 +186,6 @@ export default{
       problem:null,
       loader:null,
       isPwd: true,
-      occupation:'',
       acc_title:'',
       mobile:'',
       email: '',
@@ -244,7 +236,7 @@ export default{
                     
                   });
 
-        this.createuser({email:this.reg_email,mobile:this.mobile,occupation:this.occupation,fullnames:this.acc_title,password:this.password})
+        this.createuser({email:this.reg_email,mobile:this.mobile,fullnames:this.acc_title,password:this.password})
 
       } else {
 

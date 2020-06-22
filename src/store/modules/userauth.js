@@ -53,7 +53,7 @@ export default {
     login({commit}, data) {
 
 
-          axios.post('http://localhost:7200/api/shirikia/login', data).then( response => {
+          axios.post('https://localhost:7200/api/shirikia/login', data).then( response => {
 
             console.log(response.data);
 
@@ -73,7 +73,6 @@ export default {
             localStorage.setItem("user_email", response.data.user_account.email);
             localStorage.setItem("user_mobile", response.data.user_account.mobile);
             localStorage.setItem("user_fullnames", response.data.user_account.fullnames);
-            localStorage.setItem("user_occupation", response.data.user_account.occupation);
 
             commit("AddUser", response.data.user_account);
             commit("AddToken",response.data.token);
@@ -96,7 +95,6 @@ export default {
             
             localStorage.setItem("user_fullnames", response.data.account_create.fullnames);
             localStorage.setItem("user_email", response.data.account_create.email);
-            localStorage.setItem("user_occupation", response.data.account_create.occupation);
             localStorage.setItem("user_mobile", response.data.account_create.mobile);
             localStorage.setItem("user_password", response.data.account_create.password);
 
@@ -116,16 +114,15 @@ export default {
 
             console.log(response)
 
-            localStorage.setItem("user_fullnames", response.data.user.fullnames);
-            localStorage.setItem("user_email", response.data.user.email);
-            localStorage.setItem("user_occupation", response.data.user.occupation);
-            localStorage.setItem("user_mobile", response.data.user.mobile);
-            localStorage.setItem("user_password", response.data.user.password);
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user_fullnames", response.data.user_account.fullnames);
+            localStorage.setItem("user_email", response.data.user_account.email);
+            localStorage.setItem("user_mobile", response.data.user_account.mobile);
 
             commit("NewUser", true)
-            commit("VerifyUser", response.data.user.verified)
+            commit("VerifyUser", response.data.user_account.verified)
 
-            commit("AddUser", response.data.user);
+            commit("AddUser", response.data.user_account);
             commit("AddToken",response.data.token);
 
 

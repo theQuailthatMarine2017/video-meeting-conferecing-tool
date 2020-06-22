@@ -11,7 +11,6 @@ export default (to, from, next) => {
       fullnames:localStorage.getItem("user_fullnames"),
       email:localStorage.getItem("user_email"),
       mobile:localStorage.getItem("user_mobile"),
-      occupation:localStorage.getItem("user_occupation")
     }
 
     console.log(token)

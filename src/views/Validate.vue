@@ -75,7 +75,7 @@ export default {
                     
                   });
 
-            this.verifyuser({email:localStorage.getItem("user_email"),mobile:localStorage.getItem("user_mobile"),occupation:localStorage.getItem("user_occupation"),fullnames:localStorage.getItem("user_fullnames"),password:localStorage.getItem("user_password"),verifycode:passcode})
+            this.verifyuser({email:localStorage.getItem("user_email"),mobile:localStorage.getItem("user_mobile"),fullnames:localStorage.getItem("user_fullnames"),password:localStorage.getItem("user_password"),verifycode:passcode})
 
         },
         request_new_code(){

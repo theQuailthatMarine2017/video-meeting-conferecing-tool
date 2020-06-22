@@ -76,11 +76,6 @@
               </q-item>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  Company / School: {{ user.occupation }}
-                </q-item-section>
-              </q-item>
-              <q-item clickable v-ripple>
-                <q-item-section>
                   Scheduled Meetings: 2
                 </q-item-section>
               </q-item>
@@ -101,6 +96,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { QSpinnerGears } from 'quasar';
+import store from '../store/index';
 
 export default {
   created(){
@@ -119,6 +115,8 @@ export default {
     this.getmeetings(this.user.email)
 
 
+
+
   },
   mounted () {
 
@@ -135,6 +133,9 @@ export default {
         message:'You Can Now Schedule and Pay for Secure Meetings!',
         timeout:6000
       })
+
+      //change newuser to false
+      store.commit('NewUser', false);
     }
     
   },
