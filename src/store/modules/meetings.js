@@ -5,12 +5,14 @@ export default {
   state: {
     meetings:null,
     schedule_meeting:null,
-    refund_meeting:null
+    refund_meeting:null,
+    confirmed:null
   },
   getters: {
     meeting: state => state.meetings,
     schedule_meeting: state => state.schedule_meeting,
-    refund: state => state.refund_meeting
+    refund: state => state.refund_meeting,
+    confirmed: state => state.confirmed
   },
   mutations: {
     ScheduledMeetings(state,data){
@@ -20,6 +22,10 @@ export default {
     AddMeetings(state,data){
 
         state.meetings = data;
+    },
+    ConfirmScheduled(state,data){
+
+        state.confirmed = data;
     }
   },
   actions: {
@@ -31,27 +37,27 @@ export default {
                               params: {
                                 email: data
                               }
-                            }).then( response => {
+          }).then( response => {
 
-                                        console.log(response.data.meetings);
-                                        commit("AddMeetings", response.data.meetings);
+                      console.log(response.data.meetings);
+                      commit("AddMeetings", response.data.meetings);
 
 
-                                      }).catch( err => {
+                    }).catch( err => {
 
-                                        console.log(err)
+                      console.log(err)
 
-                                          Notify.create({
-                                              type:'negative',
-                                              color:'red',
-                                              position:'top-right',
-                                              textColor:'white',
-                                              caption:'Error Occured!',
-                                              message:err,
-                                              timeout:8000
-                                            })
+                        Notify.create({
+                            type:'negative',
+                            color:'red',
+                            position:'top-right',
+                            textColor:'white',
+                            caption:'Error Occured!',
+                            message:err,
+                            timeout:8000
+                          })
 
-                                      })
+                    })
 
     },
     scheduleMeeting({commit}, data) {
@@ -71,9 +77,11 @@ export default {
                   timeout:8000
                 })
 
-            commit("AddMeetings", response.data.meeting);
+            commit("ConfirmScheduled", response.data.title);
 
       }).catch( err => {
+
+            commit("ConfirmScheduled", err);
 
              Notify.create({
                   type:'negative',

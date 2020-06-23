@@ -147,7 +147,8 @@ export default {
     }
   },
   methods:{
-    ...mapActions(["getmeetings"])
+    ...mapActions(["getmeetings"]),
+    
   },
   computed:{
     ...mapGetters(["meeting","user","newuser"]),
