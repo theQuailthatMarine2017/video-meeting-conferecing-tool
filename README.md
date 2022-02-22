@@ -1,24 +1,3 @@
-# q-duka
+I built this web application using VueJS, NodeJS and MOngoDB and it's main purpose was a video chat service using web socket io for real time communication.
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+So far the server is off and can do a demonstration on reuqest.
